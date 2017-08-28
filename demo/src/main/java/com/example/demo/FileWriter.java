@@ -1,12 +1,9 @@
 package com.example.demo;
 
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
-import java.io.Writer;
 
 /**
  * Created by Aismael on 26.08.2017.

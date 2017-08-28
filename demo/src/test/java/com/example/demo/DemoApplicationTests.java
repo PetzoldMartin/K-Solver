@@ -11,7 +11,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-
+/**
+ * Several Cell, Cellmatrix, File reader and Writer Tests
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class DemoApplicationTests {
