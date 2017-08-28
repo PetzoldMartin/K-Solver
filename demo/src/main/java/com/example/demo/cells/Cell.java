@@ -23,35 +23,68 @@ public class Cell {
     int rows;
     char cols;
 
+    /**
+     * Constructor for an empty cell
+     */
     public Cell(){
         this.cellType = CellType.EMPTY;
     }
+
+    /**
+     * Constructor for an number Cell
+     * @param number
+     */
     public Cell(Integer number) {
         this.cellType = CellType.NUMBER;
         this.number=number;
     }
 
+    /**
+     * Constructor for an Text Cell
+     * @param text
+     */
     public Cell(String text) {
         this.cellType = CellType.TEXT;
         this.text = text;
     }
 
+    /**
+     * Constructor for an Expression cell
+     * @param cellMatrix
+     * @param expressionString
+     */
     public Cell(CellMatrix cellMatrix, String expressionString) {
         this.cellType = CellType.EXPRESSION;
         this.cellMatrix = cellMatrix;
         this.expression=readExpressionString(expressionString);
     }
 
+    /**
+     * Constructor for an Cell who has an Error at reading
+     * @param e
+     * @param error
+     */
     public Cell(Exception e,String error){
         this.cellType = CellType.ERROR;
         this.text="#"+error;
         this.exception=e;
     }
+
+    /**
+     * A mathematik Sign Cell
+     * @param signtype
+     */
     public Cell(SignType signtype) {
         this.cellType = CellType.SIGN;
         this.signtype = signtype;
     }
 
+    /**
+     * A cell which is an Reference to an other Cell
+     * @param cellMatrix
+     * @param rows
+     * @param cols
+     */
     public Cell(CellMatrix cellMatrix,int rows,char cols){
         this.cellType = CellType.REFERENCE;
         this.cellMatrix = cellMatrix;
@@ -59,13 +92,23 @@ public class Cell {
         this.cols=cols;
     }
 
-
-
+    /**
+     * Confirms an Single Alphabet Char to an Number
+     * A=1, B=2, C=3 usw
+     * @param in
+     * @return
+     */
     private Integer bigCharToInt(char in){
         char ch = 'A';
         int columnsNumber = in - ch + 1;
         return columnsNumber;
     }
+
+    /**
+     * Parses an Expression String into an Expression Array
+     * @param Expression
+     * @return
+     */
     private String readExpressionString(String Expression){
         String[] tokens =Expression.split("(?=-)|(?=\\+)|(?=\\*)|(?=\\/)");
         for(String elem:tokens){
@@ -74,10 +117,18 @@ public class Cell {
         return Expression;
     }
 
+    /**
+     * finds  the Reference of an Reference Cell
+     * @return
+     */
     private Cell getReference(){
         return cellMatrix.getPosition(rows,bigCharToInt(cols));
     }
 
+    /**
+     * Parses the Elements of an clean Expression String into the Possible Cells
+     * @param elem
+     */
     private void parseExpressionElement(String elem){
         if((char)65<=elem.charAt(0)&&elem.charAt(0)<=(char)90){
             expressionList.add(new Cell(cellMatrix, Integer.parseInt((""+elem.charAt(1))),elem.charAt(0)));
@@ -103,6 +154,13 @@ public class Cell {
         }
     }
 
+    /**
+     * Try to Solve the Expression Array from left to right
+     * @return the result
+     * @throws ClassCastException
+     * @throws NumberFormatException
+     * @throws IndexOutOfBoundsException
+     */
     private Integer solveExpression() throws ClassCastException,NumberFormatException,IndexOutOfBoundsException{
         int i=0;
         Integer sum =makeCellToInt(expressionList.get(0));
@@ -129,6 +187,13 @@ public class Cell {
         return sum;
     }
 
+    /**
+     * try to parse an Cell to an Int Value
+     * @param cell
+     * @return int Value
+     * @throws ClassCastException
+     * @throws NumberFormatException
+     */
     private int makeCellToInt(Cell cell) throws ClassCastException,NumberFormatException{
         if(cell.getValue() instanceof Integer) {
             return (Integer) cell.getValue();
@@ -137,6 +202,10 @@ public class Cell {
         }
     }
 
+    /**
+     * return the Value of an Cell by his CellType
+     * @return Value as String or Integer
+     */
     public Object getValue() {
         switch (this.cellType) {
             case TEXT:
