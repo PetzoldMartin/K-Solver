@@ -30,6 +30,10 @@ public class FileReader {
     }
 
 
+    /**
+     * opens an Tab Separated File make the tab separated data to different cells in an CellMatrix
+     * @param s Filename of the opened File
+     */
     public void openFile(String s) {
         try {
             Resource resource = new ClassPathResource(s);
@@ -54,6 +58,13 @@ public class FileReader {
         }
     }
 
+    /**
+     * Parses String Elements and Decides which CellType to choose
+     * and insert it in the Cellmatrix
+     * @param elem String Element
+     * @param rows row of the Cell Position
+     * @param cols column of the Cell Position
+     */
     private void makeCellsFromInput(String elem, int rows, int cols) {
         try {
         switch (elem.charAt(0)){
