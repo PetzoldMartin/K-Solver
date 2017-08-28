@@ -6,6 +6,10 @@ import java.util.ArrayList;
 
 /**
  * Created by Aismael on 21.08.2017.
+ * a Cell of the Cell-Matrix the different Constructors
+ * decide the Cell-type
+ * an Alternative off the Cell-type decision
+ * can be realized with subtyping
  */
 public class Cell {
     private  Exception exception;
