@@ -10,6 +10,9 @@ import java.io.*;
 
 /**
  * Created by Aismael on 21.08.2017.
+ * a Reader for an Tab Separated Sheet
+ * The used Matrix is Dynamic it is Slower than an
+ * Straight up [][]Array but more Flexible in Size and handling
  */
 @Component
 public class FileReader {
